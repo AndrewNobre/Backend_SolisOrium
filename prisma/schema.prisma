@@ -18,6 +18,7 @@ model Usuario {
   nome String
   email String @unique
   senha String
+  telefone String @unique
   createdAT DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString, MinLength, Matches } from 'class-validator';
 
 export class CriarUsuarioDto {
   @IsString()
@@ -11,4 +11,9 @@ export class CriarUsuarioDto {
   @IsString()
   @MinLength(8)
   senha: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @Matches(/^\d+$/)
+  telefone: string;
 }
