@@ -1,4 +1,5 @@
-import { Body, Controller, Post, Get, Param, Patch, Delete } from '@nestjs/common';
+import { Body, Controller, Post, Get, Param, Patch, Delete, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth/jwt-auth.guard';
 import { CriarUsuarioDto } from './dto/criar-usuario';
 import { AtualizarUsuarioDto } from './dto/atualizar-usuario';
 import { UsuariosService } from './usuarios.service';
@@ -11,6 +12,7 @@ export class UsuariosController {
     criar(@Body() dto: CriarUsuarioDto) {
         return this.usuariosService.criar(dto);
     }
+    @UseGuards(JwtAuthGuard)
     @Get()
     list() {
         return this.usuariosService.listar()
