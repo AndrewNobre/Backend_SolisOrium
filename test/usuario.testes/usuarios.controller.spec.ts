@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsuariosController } from '../../src/usuarios/usuarios.controller';
-import { UsuariosService } from '../../src/usuarios/usuarios.service'
+import { UsuariosService } from '../../src/usuarios/usuarios.service';
+import { JwtAuthGuard } from '../../src/auth/guards/jwt-auth/jwt-auth.guard';
 
 describe('UsuariosController', () => {
   let controller: UsuariosController;
@@ -12,9 +13,14 @@ describe('UsuariosController', () => {
         {
           provide: UsuariosService,
           useValue: {},
-        }
+        },
       ],
-    }).compile();
+    })
+      .overrideGuard(JwtAuthGuard)
+      .useValue({
+        canActivate: () => true,
+      })
+      .compile();
 
     controller = module.get<UsuariosController>(UsuariosController);
   });

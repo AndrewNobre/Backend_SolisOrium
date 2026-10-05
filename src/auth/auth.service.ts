@@ -34,7 +34,7 @@ export class AuthService {
         });
 
         return {
-            acess_token: token,
+            access_token: token,
             usuario: {
                 id: usuario.id,
                 nome: usuario.nome,
