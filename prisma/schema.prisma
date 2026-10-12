@@ -18,7 +18,52 @@ model Usuario {
   nome String
   email String @unique
   senha String
+  tokensRecuperacaoSenha TokenRecuperacaoSenha[]
   telefone String @unique
   createdAT DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TokenRecuperacaoSenha {
+  id String @id @default(uuid())
+
+  // Apenas o hash do token é persistido no banco.
+  tokenHash String @unique
+
+  expiraEm DateTime
+  usadoEm   DateTime?
+
+  usuarioId String
+  usuario   Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+}
+
+enum StatusPontoRecarga {
+  DISPONIVEL
+  OCUPADO
+}
+
+model PontoRecarga {
+  id String @id @default(uuid())
+
+  nome     String
+  endereco String
+
+  // Localização informada no cadastro do ponto.
+  latitudeCadastrada  Decimal @db.Decimal(10, 7)
+  longitudeCadastrada Decimal @db.Decimal(10, 7)
+
+  // Localização mais recente recebida do dispositivo IoT.
+  latitudeDetectada  Decimal? @db.Decimal(10, 7)
+  longitudeDetectada Decimal? @db.Decimal(10, 7)
+
+  status StatusPontoRecarga @default(DISPONIVEL)
+
+  // Permite saber quando foi a última informação enviada pelo dispositivo.
+  statusAtualizadoEm       DateTime?
+  localizacaoAtualizadaEm  DateTime?
+
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
