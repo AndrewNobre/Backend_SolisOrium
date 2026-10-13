@@ -2,7 +2,7 @@ import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/
 import { createHash, randomBytes } from 'crypto';
 import { PrismaService } from '../database/prisma.service';
 import { JwtService } from '@nestjs/jwt';
-import { EmailService } from '../conexao_email/email.service';
+import { EmailService } from '../conexao-email/email.service';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()

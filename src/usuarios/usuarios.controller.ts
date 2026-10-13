@@ -1,7 +1,7 @@
 import { Body, Controller, Post, Get, Param, Patch, Delete, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth/jwt-auth.guard';
-import { CriarUsuarioDto } from './dto/criar-usuario';
-import { AtualizarUsuarioDto } from './dto/atualizar-usuario';
+import { CriarUsuarioDto } from './dto/criar-usuario.dto';
+import { AtualizarUsuarioDto } from './dto/atualizar-usuario.dto';
 import { UsuariosService } from './usuarios.service';
 
 @Controller('usuarios')

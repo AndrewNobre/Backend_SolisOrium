@@ -4,7 +4,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { JwtAuthGuard } from './guards/jwt-auth/jwt-auth.guard';
-import { EmailModule } from '../conexao_email/email.module';
+import { EmailModule } from '../conexao-email/email.module';
 
 @Module({
   imports: [JwtModule.register({ secret: process.env.JWT_SECRET, }), EmailModule],
