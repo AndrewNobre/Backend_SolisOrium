@@ -1,7 +1,7 @@
 import { Injectable, ConflictException } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service'
-import { CriarUsuarioDto } from './dto/criar-usuario';
-import { AtualizarUsuarioDto } from './dto/atualizar-usuario';
+import { CriarUsuarioDto } from './dto/criar-usuario.dto';
+import { AtualizarUsuarioDto } from './dto/atualizar-usuario.dto';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
