@@ -1,3 +1,7 @@
+# Backend SolisOrium
+
+API do projeto SolisOrium. Consulte o [contrato de reservas](docs/reservas.md) para regras, endpoints, migration e testes.
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
