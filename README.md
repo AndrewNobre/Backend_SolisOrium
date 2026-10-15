@@ -1,6 +1,6 @@
 # Backend SolisOrium
 
-API do projeto SolisOrium. Consulte o [contrato de reservas](docs/reservas.md) para regras, endpoints, migration e testes.
+API do projeto SolisOrium. Consulte o [contrato de reservas](docs/api/reservas.md) para regras, endpoints, migration e testes.
 
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
@@ -28,6 +28,10 @@ API do projeto SolisOrium. Consulte o [contrato de reservas](docs/reservas.md) p
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+
+## Organização da API
+
+Consulte a [estrutura dos módulos e suas classes](docs/estrutura-api.md) e o [contrato de login e cadastro](docs/api/login-cadastro.md).
 
 ## Project setup
 
