@@ -6,14 +6,19 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
+export interface RequisicaoAutenticada {
+  headers: { authorization?: string };
+  user: { sub: string };
+}
+
+/** Valida o JWT Bearer e disponibiliza a identidade autenticada na requisição. */
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
-  constructor(private readonly jwtService: JwtService) { }
+  constructor(private readonly jwtService: JwtService) {}
 
+  /** Verifica a assinatura e o sub do token antes de liberar a rota. */
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const request = context
-      .switchToHttp()
-      .getRequest<{ headers: { authorization?: string } }>();
+    const request = context.switchToHttp().getRequest<RequisicaoAutenticada>();
 
     const authorization = request.headers.authorization;
 
@@ -28,7 +33,13 @@ export class JwtAuthGuard implements CanActivate {
     }
 
     try {
-      await this.jwtService.verifyAsync(token);
+      const payload = await this.jwtService.verifyAsync<{ sub?: unknown }>(
+        token,
+      );
+      if (typeof payload.sub !== 'string' || !payload.sub) {
+        throw new UnauthorizedException('Token inválido.');
+      }
+      request.user = { sub: payload.sub };
       return true;
     } catch {
       throw new UnauthorizedException('Token inválido ou expirado.');

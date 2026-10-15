@@ -7,6 +7,7 @@ generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
   moduleFormat = "cjs"
+  previewFeatures = ["partialIndexes"]
 }
 
 datasource db {
@@ -19,6 +20,7 @@ model Usuario {
   email String @unique
   senha String
   tokensRecuperacaoSenha TokenRecuperacaoSenha[]
+  reservas Reserva[]
   telefone String @unique
   createdAT DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -46,6 +48,7 @@ enum StatusPontoRecarga {
 
 model PontoRecarga {
   id String @id @default(uuid())
+  reservas Reserva[]
 
   nome     String
   endereco String
@@ -66,4 +69,27 @@ model PontoRecarga {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+enum StatusReserva {
+  ATIVA
+  CANCELADA
+  EXPIRADA
+}
+
+model Reserva {
+  id String @id @default(uuid())
+  usuarioId String
+  usuario Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  pontoRecargaId String
+  pontoRecarga PontoRecarga @relation(fields: [pontoRecargaId], references: [id], onDelete: Restrict)
+  status StatusReserva @default(ATIVA)
+  expiraEm DateTime
+  canceladaEm DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([usuarioId, createdAt])
+  @@index([pontoRecargaId, status, expiraEm])
+  @@unique([pontoRecargaId], map: "Reserva_ponto_ativo_key", where: raw("\"status\" = 'ATIVA'"))
 }
