@@ -1,14 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  ParseUUIDPipe,
-  Patch,
-  Post,
-  Req,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseUUIDPipe, Patch, Post, Req, UseGuards, } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth/jwt-auth.guard';
 import type { RequisicaoAutenticada } from '../auth/guards/jwt-auth/jwt-auth.guard';
 import { CriarReservaDto } from './dto/criar-reserva.dto';
@@ -18,7 +8,7 @@ import { ReservasService } from './reservas.service';
 @UseGuards(JwtAuthGuard)
 @Controller('reservas')
 export class ReservasController {
-  constructor(private readonly reservasService: ReservasService) {}
+  constructor(private readonly reservasService: ReservasService) { }
 
   /** Cria uma reserva vinculada ao usuário autenticado. */
   @Post()

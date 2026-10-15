@@ -1,18 +1,13 @@
-import {
-  ConflictException,
-  Injectable,
-  NotFoundException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException, UnauthorizedException, } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
 import { StatusPontoRecarga, StatusReserva } from '../generated/prisma/client';
 
-const VALIDADE_RESERVA_MS = 15 * 60 * 1000;
+const VALIDADE_RESERVA_MS = 60 * 60 * 1000;
 
 /** Gerencia reservas, prazos e transições de estado no banco. */
 @Injectable()
 export class ReservasService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   /** Cria uma reserva de 15 minutos com bloqueio transacional por ponto. */
   async criar(usuarioId: string, pontoRecargaId: string) {

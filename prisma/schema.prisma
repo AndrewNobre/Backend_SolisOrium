@@ -49,7 +49,6 @@ enum StatusPontoRecarga {
 model PontoRecarga {
   id String @id @default(uuid())
   reservas Reserva[]
-
   nome     String
   endereco String
 
@@ -60,13 +59,11 @@ model PontoRecarga {
   // Localização mais recente recebida do dispositivo IoT.
   latitudeDetectada  Decimal? @db.Decimal(10, 7)
   longitudeDetectada Decimal? @db.Decimal(10, 7)
-
   status StatusPontoRecarga @default(DISPONIVEL)
 
   // Permite saber quando foi a última informação enviada pelo dispositivo.
   statusAtualizadoEm       DateTime?
   localizacaoAtualizadaEm  DateTime?
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
