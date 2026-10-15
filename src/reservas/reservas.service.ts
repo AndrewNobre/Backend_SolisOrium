@@ -9,10 +9,12 @@ import { StatusPontoRecarga, StatusReserva } from '../generated/prisma/client';
 
 const VALIDADE_RESERVA_MS = 15 * 60 * 1000;
 
+/** Gerencia reservas, prazos e transições de estado no banco. */
 @Injectable()
 export class ReservasService {
   constructor(private readonly prisma: PrismaService) {}
 
+  /** Cria uma reserva de 15 minutos com bloqueio transacional por ponto. */
   async criar(usuarioId: string, pontoRecargaId: string) {
     return this.prisma.$transaction(async (tx) => {
       const usuario = await tx.usuario.findUnique({
@@ -21,7 +23,6 @@ export class ReservasService {
       });
       if (!usuario) throw new UnauthorizedException('Usuário não encontrado.');
 
-      // Serializa as tentativas de reserva do mesmo ponto, inclusive em instâncias distintas.
       const [ponto] = await tx.$queryRaw<
         { id: string; status: StatusPontoRecarga }[]
       >`
@@ -33,7 +34,6 @@ export class ReservasService {
         throw new ConflictException('Ponto de recarga ocupado.');
       }
 
-      // O relógio é consultado depois de adquirir o bloqueio do ponto.
       const agora = new Date();
       await tx.reserva.updateMany({
         where: {
@@ -60,13 +60,13 @@ export class ReservasService {
     });
   }
 
+  /** Retorna o histórico do usuário com o estado calculado pelo prazo de expiração. */
   async listar(usuarioId: string) {
     const agora = new Date();
     const reservas = await this.prisma.reserva.findMany({
       where: { usuarioId },
       orderBy: [{ createdAt: 'desc' }, { id: 'asc' }],
     });
-    // A expiração é efetiva pelo prazo, mesmo antes da próxima escrita no banco.
     return reservas.map((reserva) => ({
       ...reserva,
       status:
@@ -76,10 +76,10 @@ export class ReservasService {
     }));
   }
 
+  /** Cancela uma reserva vigente do titular por atualização condicional. */
   async cancelar(usuarioId: string, id: string) {
     return this.prisma.$transaction(async (tx) => {
       const reserva = await tx.reserva.findFirst({ where: { id, usuarioId } });
-      // A mesma resposta evita revelar reservas de outros usuários.
       if (!reserva) throw new NotFoundException('Reserva não encontrada.');
 
       const agora = new Date();

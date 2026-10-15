@@ -6,7 +6,6 @@ import { ReservasController } from '../../src/reservas/reservas.controller';
 import { ReservasService } from '../../src/reservas/reservas.service';
 import { JwtAuthGuard } from '../../src/auth/guards/jwt-auth/jwt-auth.guard';
 
-// Teste HTTP com JWT real e serviço substituído; persistência é testada separadamente.
 describe('Reservas HTTP', () => {
   let app: INestApplication;
   const jwt = new JwtService({ secret: 'segredo-exclusivo-dos-testes' });

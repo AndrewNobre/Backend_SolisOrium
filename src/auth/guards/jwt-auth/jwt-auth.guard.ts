@@ -11,10 +11,12 @@ export interface RequisicaoAutenticada {
   user: { sub: string };
 }
 
+/** Valida o JWT Bearer e disponibiliza a identidade autenticada na requisição. */
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
   constructor(private readonly jwtService: JwtService) {}
 
+  /** Verifica a assinatura e o sub do token antes de liberar a rota. */
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<RequisicaoAutenticada>();
 

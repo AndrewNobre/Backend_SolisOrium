@@ -8,7 +8,6 @@ import { PrismaClient } from '../../src/generated/prisma/client';
 import { PrismaService } from '../../src/database/prisma.service';
 import { ReservasService } from '../../src/reservas/reservas.service';
 
-// Somente TEST_DATABASE_URL. Cada execução cria e remove seu próprio schema aleatório.
 const connectionString = process.env.TEST_DATABASE_URL;
 const integration = connectionString ? describe : describe.skip;
 

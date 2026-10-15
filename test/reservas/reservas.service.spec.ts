@@ -6,7 +6,6 @@ import {
 import { ReservasService } from '../../src/reservas/reservas.service';
 import { PrismaService } from '../../src/database/prisma.service';
 
-// Exercita regras de negócio; concorrência real é coberta no teste de integração PostgreSQL.
 describe('ReservasService', () => {
   let service: ReservasService;
   let tx: {
