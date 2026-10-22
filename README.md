@@ -22,8 +22,6 @@ API do projeto SolisOrium. Consulte o [contrato de reservas](docs/api/reservas.m
     <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
   <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
 </p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 ## Description
 
@@ -32,6 +30,20 @@ API do projeto SolisOrium. Consulte o [contrato de reservas](docs/api/reservas.m
 ## Organização da API
 
 Consulte a [estrutura dos módulos e suas classes](docs/estrutura-api.md) e o [contrato de login e cadastro](docs/api/login-cadastro.md).
+
+## Arquivos de configuração da raiz
+
+Os arquivos JSON mantêm as configurações sem comentários. Suas responsabilidades estão descritas abaixo:
+
+| Arquivo | Finalidade |
+| --- | --- |
+| `package.json` | Define os scripts e as dependências do projeto. |
+| `package-lock.json` | Registra as versões exatas das dependências instaladas pelo npm. |
+| `nest-cli.json` | Configura a estrutura e a compilação pela CLI do NestJS. |
+| `tsconfig.json` | Define as opções de compilação e verificação de tipos do TypeScript. |
+| `tsconfig.build.json` | Ajusta a compilação da aplicação, excluindo os testes. |
+| `.oxlintrc.json` | Define as regras de análise estática do código. |
+| `.prettierrc` | Define o padrão de formatação do código. |
 
 ## Project setup
 
@@ -42,26 +54,26 @@ $ npm install
 ## Compile and run the project
 
 ```bash
-# development
+# Execução em desenvolvimento
 $ npm run start
 
-# watch mode
+# Reinício automático ao salvar alterações
 $ npm run start:dev
 
-# production mode
+# Execução da versão compilada
 $ npm run start:prod
 ```
 
 ## Run tests
 
 ```bash
-# unit tests
+# Testes unitários e de integração
 $ npm run test
 
-# e2e tests
+# Testes HTTP
 $ npm run test:e2e
 
-# test coverage
+# Relatório de cobertura dos testes
 $ npm run test:cov
 ```
 
